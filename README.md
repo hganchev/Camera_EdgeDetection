@@ -1,2 +1,2 @@
 # Camera_EdgeDetection
-![alt text](https://github.com/hganchev/Camera_EdgeDetection/Documentation/main/Slide1.png?raw=true)
+![alt text](https://github.com/hganchev/Camera_EdgeDetection/Documentation/main/Slide1.png)
