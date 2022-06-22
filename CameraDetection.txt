@@ -1,0 +1,49 @@
+------------------Substract images-------------------------
+
+
+this.Cursor = Cursors.WaitCursor;
+            Application.DoEvents();
+
+            // Load the images.
+            Bitmap bm1 = (Bitmap)pictureBox2.Image;
+            Bitmap bm2 = (Bitmap)pictureBox1.Image;
+
+            // Make a difference image.
+            int wid = Math.Min(bm1.Width, bm2.Width);
+            int hgt = Math.Min(bm1.Height, bm2.Height);
+
+            // Get the differences.
+            int[,] diffs = new int[wid, hgt];
+            int max_diff = 0;
+            for (int x = 0; x < wid; x++)
+            {
+                for (int y = 0; y < hgt; y++)
+                {
+                    // Calculate the pixels' difference.
+                    Color color1 = bm1.GetPixel(x, y);
+                    Color color2 = bm2.GetPixel(x, y);
+                    diffs[x, y] = (int)(
+                        Math.Abs(color1.R - color2.R) +
+                        Math.Abs(color1.G - color2.G) +
+                        Math.Abs(color1.B - color2.B));
+                    if (diffs[x, y] > max_diff)
+                        max_diff = diffs[x, y];
+                }
+            }
+            //max_diff = 255;
+
+            // Create the difference image.
+            Bitmap bm3 = new Bitmap(wid, hgt);
+            for (int x = 0; x < wid; x++)
+            {
+                for (int y = 0; y < hgt; y++)
+                {
+                    int clr = 255 - (int)(255.0 / max_diff * diffs[x, y]);
+                    bm3.SetPixel(x, y, Color.FromArgb(clr, clr, clr));
+                }
+            }
+
+            // Display the result.
+            pictureBox2.Image = bm3;
+
+            this.Cursor = Cursors.Default;
